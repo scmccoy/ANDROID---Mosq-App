@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -60,6 +61,8 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
     List<MyTask> tasks;
     private Button btnNewShowLocation;
     View v;
+    private double longitude;
+    private double latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,18 +88,21 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
     }
 
     private void getData() {
-
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        // moved some content to OnConnected. Leaving commented out for reference/testing
+       // mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         Calendar c = Calendar.getInstance();
         System.out.println("Current time =&gt; " + c.getTime());
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         mFormattedDate = df.format(c.getTime());
-        if (mLastLocation != null) {
-            double latitude = mLastLocation.getLatitude();
-            double longitude = mLastLocation.getLongitude();
+    /*    if (mLastLocation != null) {
+             latitude = mLastLocation.getLatitude();
+             longitude = mLastLocation.getLongitude();
         } else {
             Toast.makeText(getApplicationContext(), "Searching for your location... \nMake sure WiFi or GPS is turned On", Toast.LENGTH_LONG).show();
-        }
+        }*/
+        System.out.println("Longitude (getData)" + longitude + " and Latitude: " + latitude);
+
+        // ISSUE? Does not have Long/Lat print out in this function? Why?
 
     }
 
@@ -161,11 +167,15 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
         RequestPackage p = new RequestPackage();
         p.setMethod("POST");
         p.setUri(uri);
-        p.setParam("longitude", String.valueOf(mLastLocation.getLongitude()));
-        p.setParam("latitude", String.valueOf(mLastLocation.getLatitude()));
+        p.setParam("longitude", String.valueOf(longitude));
+        p.setParam("latitude", String.valueOf(latitude));
+      //  p.setParam("longitude", String.valueOf(mLastLocation.getLongitude()));
+      //  p.setParam("latitude", String.valueOf(mLastLocation.getLatitude()));
         p.setParam("date", String.valueOf(mFormattedDate));
         MyTask task = new MyTask();
         task.execute(p);
+        System.out.println("Longitude (post data to server)" + longitude + " and Latitude: " + latitude);
+
     }
 
     protected boolean isOnline() {
@@ -214,6 +224,8 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
     @Override
     protected void onResume() {
         super.onResume();
+        // Testing next line
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         checkPlayServices();
         getData();
     }
@@ -226,7 +238,17 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
 
     @Override
     public void onConnected(Bundle arg0) {
-        getData();
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        System.out.println("Longitude (on Connected): " + longitude + " and Latitude: " + latitude);
+        
+        if (mLastLocation != null) {
+            latitude = mLastLocation.getLatitude();
+            longitude = mLastLocation.getLongitude();
+        } else {
+            Toast.makeText(getApplicationContext(), "Searching for your location... \nMake sure WiFi or GPS is turned On", Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
     @Override
