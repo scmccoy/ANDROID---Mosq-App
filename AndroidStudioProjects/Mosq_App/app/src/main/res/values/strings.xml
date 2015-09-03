@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Bite Me!</string>
+    <string name="about_name">About Bite Me!</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="action_about_page">About</string>
+    <string name="about_page_text">Thank you for participating in Citizen Science! Our goal is to track the amounts of mosquito bites across the United States of America. Your decision to help track when and where you are bitten will be added to a publicly viewable Map online. Blah de Blah. Much more text. PLACE HOLDER. </string>
+    <string name="about_page_find_us">Visit Us at: LINK TO OUR HOME PAGE</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="btn_submit">Submit!</string>
+    <string name="main_activity_title_name">Bite Me! App</string>
+
+
+</resources>

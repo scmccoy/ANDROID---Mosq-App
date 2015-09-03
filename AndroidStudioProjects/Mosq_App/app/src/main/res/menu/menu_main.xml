@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mosq_app.MainActivity">
+
+    <item
+        android:id="@+id/action_about_page"
+        android:orderInCategory="101"
+        android:title="@string/action_about_page"
+        app:showAsAction="always" />
+
+</menu>

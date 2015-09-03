@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Mosquito Bite!</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="get_data">Get data</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="btn_get_location">Send Data!</string>
+    <string name="title_activity_about">Back to main page</string>
+    <string name="action_about">About</string>
+    <string name="action_settings">Action Settings</string>
+</resources>
