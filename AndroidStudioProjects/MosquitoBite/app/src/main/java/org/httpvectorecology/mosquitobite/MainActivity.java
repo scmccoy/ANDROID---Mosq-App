@@ -76,7 +76,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
             @Override
             public void onClick(View v) {
                 if (mLastLocation != null) {
-                    postDataToServer("http://10.0.2.2/index.php");
+                    postDataToServer("http://vectorecology.org/index.php");
                 } else {
                     Toast.makeText(MainActivity.this, "Network isn't available", Toast.LENGTH_LONG).show();
                 }
