@@ -76,7 +76,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
             @Override
             public void onClick(View v) {
                 if (mLastLocation != null) {
-                    postDataToServer("http://vectorecology.org/index.php");
+                    postDataToServer("http://vectorecology.org/mosq_app/index.php");
                 } else {
                     Toast.makeText(MainActivity.this, "Network isn't available", Toast.LENGTH_LONG).show();
                 }
@@ -95,7 +95,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
             double latitude = mLastLocation.getLatitude();
             double longitude = mLastLocation.getLongitude();
         } else {
-            Toast.makeText(getApplicationContext(), "Searching for location... \nMake sure wifi or GPS is turned On", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Searching for your location... \nMake sure WiFi or GPS is turned On", Toast.LENGTH_LONG).show();
         }
 
     }
