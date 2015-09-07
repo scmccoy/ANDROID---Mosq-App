@@ -6,12 +6,13 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.location.LocationListener;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,6 +21,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 
 import java.util.Random;
 
@@ -28,7 +32,9 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 
 import android.location.Location;
 import android.util.Log;
@@ -39,6 +45,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.widget.ProgressBar;
+
 
 
 public class MainActivity extends Activity implements ConnectionCallbacks,
@@ -64,6 +71,16 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
     private double longitude;
     private double latitude;
 
+    // boolean flag to toggle periodic location updates
+    private boolean mRequestingLocationUpdates = false;
+
+    private LocationRequest mLocationRequest;
+
+    // Location updates intervals in sec
+    private static int UPDATE_INTERVAL = 10000; // 10 sec
+    private static int FATEST_INTERVAL = 5000; // 5 sec
+    private static int DISPLACEMENT = 10; // 10 meters
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,10 +91,20 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
         tasks = new ArrayList<>();
         if (checkPlayServices()) {
             buildGoogleApiClient();
+            createLocationRequest();
         }
+
+//        // Check if has GPS
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+        }
+
         btnNewShowLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //postDataToServer("http://vectorecology.org/mosq_app/index.php");
+
                 if (mLastLocation != null) {
                     postDataToServer("http://vectorecology.org/mosq_app/index.php");
                 } else {
@@ -85,6 +112,23 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
                 }
             }
         });
+    }
+
+    /**
+     * Creating location request object
+     * */
+    protected void createLocationRequest() {
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
+                .setInterval(UPDATE_INTERVAL)
+                .setFastestInterval(FATEST_INTERVAL)
+                .setSmallestDisplacement(DISPLACEMENT);
+        /*
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(UPDATE_INTERVAL);
+        mLocationRequest.setFastestInterval(FATEST_INTERVAL);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setSmallestDisplacement(DISPLACEMENT); */
     }
 
     private void getData() {
@@ -139,6 +183,25 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
         }
     };
 
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -154,6 +217,8 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
         });
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -190,6 +255,8 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API).build();
@@ -225,9 +292,17 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
     protected void onResume() {
         super.onResume();
         // Testing next line
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+      //  mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         checkPlayServices();
         getData();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
     }
 
     @Override
@@ -238,17 +313,16 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
 
     @Override
     public void onConnected(Bundle arg0) {
+        getData();
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         System.out.println("Longitude (on Connected): " + longitude + " and Latitude: " + latitude);
-        
+
         if (mLastLocation != null) {
             latitude = mLastLocation.getLatitude();
             longitude = mLastLocation.getLongitude();
         } else {
             Toast.makeText(getApplicationContext(), "Searching for your location... \nMake sure WiFi or GPS is turned On", Toast.LENGTH_LONG).show();
         }
-
-
     }
 
     @Override

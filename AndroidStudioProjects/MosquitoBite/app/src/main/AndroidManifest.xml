@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -29,6 +30,9 @@
                 android:value="org.httpvectorecology.mosquitobite.MainActivity" />
         </activity>
 
+        <meta-data
+            android:name="com.google.android.geo.AIzaSyCicl4VDfSQsWK6heC2WD0fvKxez35dkZs"
+            android:value="AIzaSyCicl4VDfSQsWK6heC2WD0fvKxez35dkZs" />
     </application>
 
 </manifest>

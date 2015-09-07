@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="org.httpvectorecology.mosquitobite.MainActivity"
-    android:background="@drawable/mosbite_bg1e" >
+    android:background="@drawable/mosbite_bg1a" >
 
     <RelativeLayout
         android:orientation="vertical"
@@ -21,7 +21,8 @@
             android:id="@+id/imageViewTitle"
             android:src="@drawable/mosquito_bite4"
             android:adjustViewBounds="true"
-            />
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp" />
 
         <ProgressBar
             android:id="@+id/progressBar1"
@@ -45,12 +46,11 @@
             android:text="I&apos;ve been bitten!"
             android:id="@+id/textBelowButton"
             android:layout_gravity="center_horizontal"
-            android:textStyle="bold"
-            android:textSize="15sp"
+            android:textSize="24sp"
             android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp" />
 
 
 
