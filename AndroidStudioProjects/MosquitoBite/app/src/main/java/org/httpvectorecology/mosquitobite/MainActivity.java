@@ -23,6 +23,7 @@ import android.location.Location;
 
 import java.util.Random;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -39,6 +40,11 @@ import android.widget.Toast;
 import android.os.AsyncTask;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Logger;
+import com.google.android.gms.analytics.Tracker;
+
+
 
 public class MainActivity extends Activity implements ConnectionCallbacks,
         OnConnectionFailedListener {
@@ -51,6 +57,10 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
         add("A mosquito's wings beat 300-600 times per second");
     }};
 
+    // Testing Google Analytics
+
+
+    //
     private static final String TAG = MainActivity.class.getSimpleName();
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
     private GoogleApiClient mGoogleApiClient;
@@ -81,6 +91,12 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
             buildGoogleApiClient();
             createLocationRequest();
         }
+            /*
+    *For Google Analytics...
+    */
+        Tracker t = ((GoogleAnalyticsMB) getApplication()).getTracker(GoogleAnalyticsMB.TrackerName.APP_TRACKER);
+        t.setScreenName("MainActivity");
+        t.send(new HitBuilders.ScreenViewBuilder().build());
 
         btnNewShowLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,6 +231,8 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         }
+        //Get an Analytics tracker to report app starts & uncaught exceptions etc.
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
     }
 
     @Override
@@ -230,6 +248,8 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+        //Stop the analytics tracking
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 
     @Override

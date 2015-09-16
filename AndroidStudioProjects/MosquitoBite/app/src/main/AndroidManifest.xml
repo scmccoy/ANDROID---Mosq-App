@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
+        android:name=".GoogleAnalyticsMB"
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
@@ -31,9 +32,14 @@
                 android:value="org.httpvectorecology.mosquitobite.MainActivity" />
         </activity>
 
+
+        <!-- Google Analytics Version v4 needs this value for easy tracking -->
         <meta-data
-            android:name="com.google.android.geo.AIzaSyCicl4VDfSQsWK6heC2WD0fvKxez35dkZs"
-            android:value="AIzaSyCicl4VDfSQsWK6heC2WD0fvKxez35dkZs" />
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.analytics.globalConfigResource"
+            android:resource="@xml/analytics_global_config" />
     </application>
 
 </manifest>
