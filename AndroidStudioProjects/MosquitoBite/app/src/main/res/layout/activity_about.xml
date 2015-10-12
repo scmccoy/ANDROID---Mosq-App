@@ -8,43 +8,45 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:alpha="0.8"
     tools:context="org.httpvectorecology.mosquitobite.AboutActivity">
 
     <TextView
         android:id="@+id/AboutTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:text="About Mosquito Bite!"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="32sp" />
+        android:textSize="28sp"
+        android:textColor="#ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:layout_marginBottom="8dp" />
 
     <TextView
         android:id="@+id/AboutContentTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="This is an app for any mobile device that lets you contribute to science and help us understand where and when to best control biting mosquitoes.  With this simple application, you can record when and where you were bit by a mosquito by just pressing a button when you get bitten.  No personal information is taken.  The anonymous bite data is compiled and displayed on a map, so you can see where and when people are being bit!  "
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16dp"
+        android:layout_below="@+id/AboutTitleTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/AboutTitleTextView"
-        android:text="Thank you for contributing to Citizen Science! At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia "
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textColor="#ffffff"
+        android:layout_marginBottom="8dp" />
 
     <TextView
-        android:id="@+id/AboutBottomTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:linksClickable="true"
-        android:text="Please Visit our website for updated Map Information"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textIsSelectable="false" />
+        android:text="@string/visit_us_about"
+        android:id="@+id/visitUsAtText"
+        android:textColor="#ffffff"
+        android:textSize="16dp"
+        android:layout_below="@+id/AboutContentTextView"
+        android:layout_centerHorizontal="true"
+        android:autoLink="web"/>
 
 </RelativeLayout>

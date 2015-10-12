@@ -10,7 +10,7 @@
         android:id="@+id/txtViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Data was sent to a Scientist!"
+        android:text="Data was sent to a scientist!"
         android:textSize="18sp"
         android:textColor="#333333"
         android:typeface="sans"
@@ -23,7 +23,7 @@
         android:text="Did you know...?"
         android:id="@+id/textView"
         android:textSize="16sp"
-        android:textColor="#555"
+        android:textColor="#1D4204"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal" />
 
@@ -37,7 +37,7 @@
         android:layout_marginRight="5dp"
         android:textStyle="italic"
         android:textSize="16sp"
-        android:textColor="#336699"
+        android:textColor="#3A3A3A"
         android:layout_marginBottom="5dp" />
 
     <Button

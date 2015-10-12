@@ -51,10 +51,26 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
     Button btnClosePopup;
     final Random randomGenerator = new Random();
     final ArrayList funFactsList = new ArrayList() {{
-        add("Mosquitoes are the deadliest animals on Earth");
-        add("Only female mosquitoes bite humans and animals; males feed on flower nectar");
-        add("Mosquitoes fly at speeds between 1 and 1.5 miles per hour");
-        add("A mosquito's wings beat 300-600 times per second");
+        add("North Dakota is the state with the fewest types (species) of mosquitoes with 24 species; Florida has the most with 76");
+        add("Mosquitoes spit into you when they bite, and that’s what makes you itch");
+        add("Eliminating places for mosquitoes to grow is an effective and free way to control them");
+        add("There is a spider in Africa that specializes in eating mosquitoes");
+        add("All mosquitoes grow in water");
+        add("Eggs of some desert mosquitoes can survive several years before hatching");
+        add("There is a tropical mosquito that is fed by ants");
+        add("Some mosquitoes have been living close to people since the beginning of cities, about 3000 years ago");
+        add("There are some mosquitoes that prefer birds, and some that prefer frogs");
+        add("Salt marsh mosquitoes have been found flying 15 miles from where they emerged");
+        add("The most common lethal pathogen of dogs in the United States in transmitted by mosquitoes, dog heartworm");
+        add("Due to its role as the vector of malaria and viruses, mosquitoes kill more people every year than any other animal");
+        add("The biggest mosquito in the world doesn’t drink blood, and eats other mosquitoes!");
+        add("Certain mosquitoes become more abundant in times of drought, and can drive epidemics of deadly brain swelling");
+        add("Most types of mosquitoes (species) don’t bite people");
+        add("Some mosquitoes have spread around the world, and the same species can be found on all continents except Antarctica");
+        add("Male mosquitoes are attracted to the buzz of female mosquitoes, and female mosquitoes judge males by their buzz");
+        add("Some people are more attractive to mosquitoes than others, but we don’t know why yet.  We’re working on it");
+        add("Fossil mosquitoes have been found from the time of the dinosaurs, but not dino DNA has been preserved ☹");
+        add("Mosquito populations can quickly evolve resistance to pesticides, but resistance to repellents is rare");
     }};
 
     // Testing Google Analytics
