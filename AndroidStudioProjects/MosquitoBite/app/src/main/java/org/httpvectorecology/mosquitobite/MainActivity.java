@@ -41,7 +41,6 @@ import android.os.AsyncTask;
 import android.widget.ProgressBar;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
 
 
@@ -69,7 +68,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
         add("Some mosquitoes have spread around the world, and the same species can be found on all continents except Antarctica");
         add("Male mosquitoes are attracted to the buzz of female mosquitoes, and female mosquitoes judge males by their buzz");
         add("Some people are more attractive to mosquitoes than others, but we don’t know why yet.  We’re working on it");
-        add("Fossil mosquitoes have been found from the time of the dinosaurs, but not dino DNA has been preserved ☹");
+        add("Fossil mosquitoes have been found from the time of the dinosaurs, but no dino DNA has been preserved");
         add("Mosquito populations can quickly evolve resistance to pesticides, but resistance to repellents is rare");
     }};
 
